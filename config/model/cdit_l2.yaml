@@ -1,0 +1,10 @@
+name: cdit_l2
+target: models.dit_shortcut.DiT_L_2
+params:
+  learn_sigma: False
+  num_classes: ${data.num_classes}
+  in_channels: 4
+  class_dropout_prob: 0.1
+  use_dt_adaptor: True
+  att_type: fsdp
+  use_shortcut: True

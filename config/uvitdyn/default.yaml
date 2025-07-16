@@ -1,0 +1,4 @@
+
+schedule: linear
+pred: noise_pred
+num_steps: 50

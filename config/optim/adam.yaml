@@ -1,0 +1,5 @@
+name: adam
+lr: 1e-4
+wd: 0 
+betas: [0.9, 0.95] #default adamw betas
+fused: true

@@ -1,0 +1,10 @@
+name: unet
+target: models.mnist_net.Unet
+params:
+  in_channels: 4
+  out_channels: 4
+  base_dim: 256
+  #dim_mults: (1, 2, 4)
+
+
+

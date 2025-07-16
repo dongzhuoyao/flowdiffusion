@@ -1,0 +1,12 @@
+name: cdit_b4_cdp0
+target: models.dit_shortcut.DiT_B_4
+params:
+  learn_sigma: False
+  num_classes: ${data.num_classes}
+  in_channels: 4
+  class_dropout_prob: 0.0
+  use_dt_adaptor: True
+  att_type: fsdp
+  use_shortcut: True
+
+

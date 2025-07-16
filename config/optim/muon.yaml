@@ -1,0 +1,5 @@
+name: muon
+lr: 0.007
+lr_adamw: 1e-4
+wd_adamw: 0.01
+fused_adamw: true

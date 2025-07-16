@@ -1,0 +1,82 @@
+defaults:
+  - data: cub200_256_cond
+  - train: default
+  - model: cdit_s2
+  - wandb: default
+  - optim: adamw
+  - ode: ode
+  - sde: sde
+  - lrschedule: default
+  - uvitdyn: default
+  - dyndit: default
+  - shortcut: default
+  - ag: default
+  - _self_
+
+
+
+
+input_tensor_type: bt
+
+accum: 1
+mixed_precision: null #fp8, fp16, fp32, no
+
+ckpt: null  
+ckpt_latte: null
+dynamic: fm
+compile: false
+
+vis_nfe_comparison: false
+wandb_fork: false
+
+global_seed: 0
+log_every: 100
+ckpt_every: 30_000
+sample_every: 10_000
+max_grad_norm: 0.5
+
+use_wandb: true
+note: note   
+timestamp: 
+use_ema: true
+ema_rate: 0.9999
+is_latent: true 
+use_latent: false
+
+debug: false 
+use_cfg: false
+cfg_scale: 0.0
+
+offline_sample_local_bs: 4
+num_fid_samples: 50_000
+sample_debug: false 
+
+step_num: 4
+
+
+sample_mode: null #ODE or SDE
+# sampling
+likelihood: false 
+allow_tf32: false  # True: fast but may lead to some small numerical differences
+sample_dir: samples
+
+
+
+vae: ema #", type=str, choices=["ema", "mse"], default="ema")  # Choice doesn't affect training
+
+
+
+
+hydra:
+  run:
+    dir: outputs/${hydra.job.name}/${now:%Y-%m-%d_%H-%M-%S}_${timestamp} #_${hydra.job.id}
+    #dir: outputs/${hydra.job.name}/${now:%Y-%m-%d_%H-%M-%S}_${now}
+  job:
+    name: ${dynamic}_${model.name}_${data.name}_bs${data.batch_size}
+
+
+
+
+
+
+

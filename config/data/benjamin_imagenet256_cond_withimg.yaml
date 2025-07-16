@@ -1,0 +1,35 @@
+name: imagenet256_cond_withimg
+
+train_steps: 400_000
+sample_vis_n: 8
+video_frames: 0
+sample_vis_every: 60_00
+
+batch_size: 3
+image_size: 256
+num_classes: 1001
+
+subset: train
+sample_fid_n: 5_000
+eval_last_fid_num: 50_000
+sample_fid_every: 25_000
+sample_fid_bs: ${data.batch_size}
+
+npz_real: ./data/imagenet_rawvarysize_wds_res256_fidstat_real_50k.npz
+
+
+train_shards_path: ./data/imagenet_1k_256x256_latents_img1/shard_{000000..000540}.tar
+eval_shards_path: ./data/imagenet_1k_256x256_latents_img1/shard_{000000..000540}.tar
+num_train_examples: 128_1167
+per_gpu_batch_size: ${data.batch_size}
+global_batch_size: null
+num_workers_per_gpu: 4 #follow titok
+crop_size: ${data.image_size}
+use_latent: ${use_latent}
+resize_shorter_edge: ${data.image_size}
+random_crop: false
+random_flip: false 
+########################################################
+save_image: 2
+
+

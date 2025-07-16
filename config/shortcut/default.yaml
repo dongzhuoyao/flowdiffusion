@@ -1,0 +1,36 @@
+bootstrap_every: 4
+alg_type: shortcut
+use_ema_for_bootstrap: True
+weighting_mode: none
+annealing_mode: none
+annealing_losses: False # not used any more 
+annealing_bootstrap_every: False
+dt_negative: False
+dt_negative_loss: False
+num_steps: 128
+bst_weight: 1
+flowloss_pyramid: False
+bootstrap_branch: default
+loss_reduce: add #merge, add
+
+use_repa: False
+repa_w: 0.5
+encoder_path: 8
+repa_enc_type: dinov2-vit-b
+etazero: False 
+flowloss_ct: False
+imm_k: 11
+
+dt_space: default #default, eta,logsnr
+
+
+meanflow:
+  use_jvp_func: True
+  r_eq_t_prob: 0.75
+  loss_weighting: False
+  weight_c: 1e-3
+  weight_p: 1.0
+  sample_tr: uniform
+  eps: 1e-4
+  ln_mu: 0.0 #-0.4
+  ln_sigma: 1.0
