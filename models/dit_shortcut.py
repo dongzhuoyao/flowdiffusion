@@ -479,9 +479,7 @@ class DiT(nn.Module):
                     print(k,v.shape)
                 except:
                     print(k,v)
-        if len(x.shape)==len(dt.shape):
-            dt = dt.squeeze(-1).squeeze(-1).squeeze(-1)
-            assert len(dt.shape)==1
+        
         if len(x.shape)==len(t.shape):
             t = t.squeeze(-1).squeeze(-1).squeeze(-1)
             assert len(t.shape)==1
@@ -489,6 +487,9 @@ class DiT(nn.Module):
         t = self.t_embedder(t) 
         c = t 
         if dt is not None:
+            if len(x.shape)==len(dt.shape):
+                dt = dt.squeeze(-1).squeeze(-1).squeeze(-1)
+                assert len(dt.shape)==1
             dt = self.dt_embedder(dt) 
             dt = self.dt_adaptor(dt)
             c = c + dt                              # (N, D)

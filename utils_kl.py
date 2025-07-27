@@ -255,10 +255,11 @@ def kl_get_generator(loader, train_steps, accelerator, args, device):
                     yield x
                 
             else:
-                raise NotImplementedError("imagenet not implemented")
+                #raise NotImplementedError("imagenet not implemented")
                 if return_cls_id:
                     yield out2img(data["image"]).to(device), data["cls_id"].to(device)
                 else:
+                    print("data.keys()", data.keys())
                     yield out2img(data["image"]).to(device)
 
     data_generator = get_data_generator()

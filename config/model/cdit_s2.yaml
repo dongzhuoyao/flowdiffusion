@@ -1,4 +1,4 @@
-name: cdit_s2
+name: cdit_s2_sc
 target: models.dit_shortcut.DiT_S_2
 params:
   learn_sigma: False
@@ -7,5 +7,5 @@ params:
   class_dropout_prob: 0.1
   use_dt_adaptor: True
   att_type: fsdp
-  use_shortcut: True
+  use_shortcut: False
   

@@ -217,10 +217,12 @@ def build_train_processing_pipeline(transform, num_classes=0, crop_size=256, use
             image=transform.train_transform if hasattr(transform, "train_transform") else transform,
             handler=wds.warn_and_continue,
         ),
+        )
+        pipeline.append(
         wds.map_dict(
             image=lambda x: x * 2 - 1,  # [0,1] to [-1,1]
             handler=wds.warn_and_continue,
-        ),
+            ),
         )
     elif save_image==2:
         img_transform = transforms.Compose(
@@ -334,8 +336,8 @@ if __name__ == "__main__":
             break
     elif True:
         dataloader = SimpleImageDataset(
-            train_shards_path="./data/imagenet_1k_256x256_latents_img0dino1/shard_{000000..000002}.tar",
-            eval_shards_path="./data/imagenet_1k_256x256_latents_img0dino1/shard_{000000..000002}.tar",
+            train_shards_path="./data/CUB_200_2011_wds_v2/train-{000000..000004}.tar",
+            eval_shards_path="./data/CUB_200_2011_wds_v2/train-{000000..000004}.tar",
             num_train_examples=1000,
             per_gpu_batch_size=64,
             global_batch_size=64,
@@ -344,14 +346,14 @@ if __name__ == "__main__":
             num_classes=1001,
             random_crop=True,
             random_flip=True,
-            use_latent=True,
-            save_image=0,
-            save_dino=1,
+            use_latent=False,
+            save_image=1,
+            save_dino=0,
         )
         for batch in dataloader.train_dataloader():
             print(batch.keys())
-            print(batch["dino_feature"].shape, batch["dino_feature"].max(), batch["dino_feature"].min())
-            print( batch["latent"].shape, batch["latent"].max(), batch["latent"].min(),batch["latent"].mean(),batch["latent"].std())
-            #print(batch["cls_id"].shape, batch["cls_id"].max(), batch["cls_id"].min())
+            #print(batch["dino_feature"].shape, batch["dino_feature"].max(), batch["dino_feature"].min())
+            #print( batch["latent"].shape, batch["latent"].max(), batch["latent"].min(),batch["latent"].mean(),batch["latent"].std())
+            print(batch["cls_id"].shape, batch["cls_id"].max(), batch["cls_id"].min())
             break
 
