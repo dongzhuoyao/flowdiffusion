@@ -8,7 +8,7 @@
 conda create -n fd python=3.11
 conda activate fd
 pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128
-pip install  torchdiffeq  matplotlib h5py timm diffusers accelerate loguru blobfile ml_collections wandb absl-py
+pip install  torchdiffeq  matplotlib h5py timm diffusers accelerate loguru blobfile ml_collections wandb absl-py wids
 pip install hydra-core opencv-python torch-fidelity webdataset einops pytorch_lightning
 pip install torchmetrics --upgrade
 pip install moviepy imageio 
@@ -17,11 +17,20 @@ pip install diffusers  open_clip-torch einops omegaconf webdataset
 ```
 
 
-# Train
+
+# multi-gpu Train
 
 ```
 CUDA_LAUNCH_BLOCKING=1 CUDA_VISIBLE_DEVICES=2,3 accelerate launch  --mixed_precision bf16  --num_processes  2 --num_machines 1 --multi_gpu --main_process_ip 127.0.0.1 --main_process_port 8868 train_acc_kl.py mixed_precision=bf16 model=cdit_b2 model.params.use_shortcut=False data=cub200_256_cond model.params.in_channels=4 use_latent=0  dynamic=fm  data.batch_size=64 optim.lr=1e-4  debug=0
 ```
+
+# Single-gpu Train on MNIST
+
+```
+CUDA_VISIBLE_DEVICES=2 accelerate launch  --mixed_precision bf16  --num_processes  1 --num_machines 1 --main_process_ip 127.0.0.1 --main_process_port 8868 train_acc_kl.py mixed_precision=bf16 model=cdit_b2 model.params.use_shortcut=False data=cub200_256_cond model.params.in_channels=4 use_latent=0  dynamic=fm  data.batch_size=64 optim.lr=1e-4  debug=0
+```
+
+
 
 # Sampling
 
