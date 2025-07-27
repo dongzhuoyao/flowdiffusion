@@ -18,7 +18,7 @@ class FlowMatching:
     def __init__(self, with_shortcut=False, eps=1e-4):
         self.with_shortcut = with_shortcut
         print(f"with_shortcut: {with_shortcut}")
-        self.eps = eps
+
 
     def _fm_loss(self, model, x1, **model_kwargs):
         x0 = torch.randn_like(x1)
@@ -33,10 +33,10 @@ class FlowMatching:
 
 
     def training_losses(self, model, ema_model, x1, sc_kwargs,verbose=False, **model_kwargs):
-        if self.with_shortcut:
+        if self.with_shortcut: # use shortcut loss: fm loss + shortcut loss
             loss_dict = shortcut_loss(model=model, ema_model=ema_model, x1=x1, verbose=verbose, sc_kwargs=sc_kwargs, **model_kwargs)
             return loss_dict
-        else:
+        else: # use fm loss only
             loss_dict =  self._fm_loss(model=model, x1=x1, **model_kwargs)
             return loss_dict
 
@@ -60,7 +60,7 @@ class FlowMatching:
         
         if self.with_shortcut:
                 x_t = z 
-                for i in range(step_num):
+                for i in range(step_num): # Euler solver
                     t = i*1.0/step_num
                     t_vec = torch.ones(len(x_t),device=device)*t
 
@@ -70,7 +70,7 @@ class FlowMatching:
                 return x_t
         else: # FM
                 x_t = z 
-                for i in range(step_num):
+                for i in range(step_num): # Euler solver
                     t = i*1.0/step_num
                     t_vec = torch.ones(len(x_t),device=device)*t
                     x_t = x_t + dt * sample_fn_wrapper(model_fn,x_t, t_vec, dt=None, **model_kwargs)

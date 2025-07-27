@@ -1,4 +1,4 @@
-name: cdit_s2_sc
+name: cdit_s2
 target: models.dit_shortcut.DiT_S_2
 params:
   learn_sigma: False

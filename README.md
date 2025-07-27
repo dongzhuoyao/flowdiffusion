@@ -30,16 +30,11 @@ pip install diffusers  open_clip-torch einops omegaconf webdataset
 
 
 
-# multi-gpu Train
-
-```
-CUDA_LAUNCH_BLOCKING=1 CUDA_VISIBLE_DEVICES=2,3 accelerate launch  --mixed_precision bf16  --num_processes  2 --num_machines 1 --multi_gpu --main_process_ip 127.0.0.1 --main_process_port 8868 train_acc_kl.py mixed_precision=bf16 model=cdit_b2 model.params.use_shortcut=False data=cub200_256_cond model.params.in_channels=4 use_latent=0  dynamic=fm  data.batch_size=64 optim.lr=1e-4  debug=0
-```
 
 # Single-gpu Train on CUB about Flow Matching
 
 ```
-CUDA_VISIBLE_DEVICES=2 accelerate launch  --mixed_precision bf16  --num_processes  1 --num_machines 1 --main_process_ip 127.0.0.1 --main_process_port 8868 train_acc_kl.py mixed_precision=bf16 model=cdit_s2 model.params.use_shortcut=False data=cub200_256_cond_toy model.params.in_channels=4 use_latent=0  dynamic=fm  data.batch_size=64 optim.lr=1e-4  debug=0
+CUDA_VISIBLE_DEVICES=2 accelerate launch  --mixed_precision bf16  --num_processes  1 --num_machines 1 --main_process_ip 127.0.0.1 --main_process_port 8868 train_acc_kl.py mixed_precision=bf16 model=cdit_s2 model.params.use_shortcut=False data=cub200_256_cond_toy model.params.in_channels=4 use_latent=0  dynamic=fm  data.batch_size=64 optim.lr=1e-4  debug=0  shortcut.alg_type=fm
 ```
 
 # Single-gpu Train on CUB about Flow Matching with Shortcut
@@ -49,13 +44,20 @@ CUDA_VISIBLE_DEVICES=2 accelerate launch  --mixed_precision bf16  --num_processe
 ```
 
 
+# multi-gpu Train
+
+```
+CUDA_LAUNCH_BLOCKING=1 CUDA_VISIBLE_DEVICES=2,3 accelerate launch  --mixed_precision bf16  --num_processes  2 --num_machines 1 --multi_gpu --main_process_ip 127.0.0.1 --main_process_port 8868 train_acc_kl.py mixed_precision=bf16 model=cdit_b2 model.params.use_shortcut=False data=cub200_256_cond model.params.in_channels=4 use_latent=0  dynamic=fm  data.batch_size=64 optim.lr=1e-4  debug=0
+```
+
+
+
 
 # Sampling
 
 ```
 python sample_acc_kl.py model=cdit_b2_learnsigma data=cub200_256_cond model.params.in_channels=4 use_latent=1 dynamic=fmshortcut data.batch_size=64 debug=0 ckpt=./outputs/dyndit_cdit_b2_learnsigma_cub200_256_cond_bs64/2024-10-07_10-32-40_None/checkpoints/0030000.pt
 ```
-
 
 
 
