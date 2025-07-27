@@ -40,7 +40,7 @@ CUDA_VISIBLE_DEVICES=2 accelerate launch  --mixed_precision bf16  --num_processe
 # Single-gpu Train on CUB about Flow Matching with Shortcut
 
 ```
-CUDA_VISIBLE_DEVICES=2 accelerate launch  --mixed_precision bf16  --num_processes  1 --num_machines 1 --main_process_ip 127.0.0.1 --main_process_port 8868 train_acc_kl.py mixed_precision=bf16 model=cdit_s2_sc model.params.use_shortcut=True data=cub200_256_cond_toy model.params.in_channels=4 use_latent=0  dynamic=fm  data.batch_size=64 optim.lr=1e-4  debug=0
+CUDA_VISIBLE_DEVICES=2 accelerate launch  --mixed_precision bf16  --num_processes  1 --num_machines 1 --main_process_ip 127.0.0.1 --main_process_port 8868 train_acc_kl.py mixed_precision=bf16 model=cdit_s2_sc model.params.use_shortcut=True data=cub200_256_cond_toy model.params.in_channels=4 use_latent=0  dynamic=fm  data.batch_size=64 optim.lr=1e-4  shortcut.alg_type=shortcut debug=0
 ```
 
 
