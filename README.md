@@ -25,8 +25,9 @@ pip install hydra-core opencv-python torch-fidelity webdataset einops pytorch_li
 pip install torchmetrics --upgrade
 pip install moviepy imageio 
 pip install  scikit-learn --upgrade 
-pip install diffusers  open_clip-torch einops omegaconf webdataset
+pip install  open_clip-torch  omegaconf 
 ```
+curl -sSL https://install.python-poetry.org | python3 -
 
 
 
