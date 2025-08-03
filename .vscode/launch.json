@@ -6,10 +6,9 @@
         "type":"python",
         "request":"launch",
         "cwd": "${workspaceRoot}",
-        "env": {"CUDA_VISIBLE_DEVICES":"5","CUDA_LAUNCH_BLOCKING":"1","TC_OPEN":"0","TORCH_USE_CUDA_DSA":"1","MASTER_PORT":"12340","MASTER_ADDR":"127.0.0.1"},
-       
+        "env": {"CUDA_VISIBLE_DEVICES":"5","CUDA_LAUNCH_BLOCKING":"1","MASTER_PORT":"12340","MASTER_ADDR":"127.0.0.1"},
         "program":"train_acc_kl.py",
-        "args": ["mixed_precision=bf16", "model=cdit_s2", "model.params.use_shortcut=False", "data=cub200_256_cond_toy", "model.params.in_channels=4", "use_latent=0", "dynamic=fm", "data.batch_size=64", "optim.lr=1e-4", "debug=0", "shortcut.alg_type=fm","debug=1"]
+        "args": ["mixed_precision=bf16", "model=cdit_s2", "model.params.use_shortcut=False", "data=cub200_256_cond_toy", "model.params.in_channels=4", "use_latent=0", "dynamic=fm", "data.batch_size=64", "optim.lr=1e-4", "shortcut.alg_type=fm","debug=1"]
         "console": "integratedTerminal",
     },
     ]

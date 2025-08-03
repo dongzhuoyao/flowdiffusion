@@ -269,7 +269,7 @@ def main(args):
     sample_vis_n = args.data.sample_vis_n
     assert (
         sample_vis_n <= args.data.batch_size // 2
-    ), f"{sample_vis_n} > {args.data.batch_size}"
+    ), f"{sample_vis_n} <= {args.data.batch_size}"
 
     zs_fixed = init_z(sample_vis_n, device, in_channels, input_size, args)
     rankzero_logging_info(rank, f"zs shape: {zs_fixed.shape}")
