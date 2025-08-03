@@ -210,20 +210,7 @@ def main(args):
 
     ema_model = deepcopy(model).to(device)
 
-    if args.optim.name == "muon":
-        #https://github.com/KellerJordan/modded-nanogpt/blob/d700b8724cbda3e7b1e5bcadbc0957f6ad1738fd/train_gpt.py#L515
-        from muon import Muon
-       # Find ≥2D parameters in the body of the network -- these should be optimized by Muon
-        muon_params = [p for p in model.parameters() if p.ndim >= 2 and p.requires_grad]
-        # Find everything else -- these should be optimized by AdamW
-        adamw_params = [p for p in model.parameters() if p.ndim < 2 and p.requires_grad]
-        assert len(muon_params) > 0, "no muon params found"
-        assert len(adamw_params) > 0, "no adamw params found"
-        print_rank_0(f"muon params: {len(muon_params)}, adamw params: {len(adamw_params)}")
-        # Create the optimizer
-        opt = [Muon(muon_params, lr=args.optim.lr, momentum=0.95, rank=rank, world_size=accelerator.state.num_processes),
-                    torch.optim.AdamW(adamw_params, lr=args.optim.lr_adamw, betas=(0.90, 0.95), weight_decay=args.optim.wd_adamw,fused=args.optim.fused_adamw)]
-    elif args.optim.name == "adamw":
+    if args.optim.name == "adamw":
         opt = torch.optim.AdamW(
             model.parameters(), lr=args.optim.lr, weight_decay=args.optim.wd, fused=args.optim.fused
         )
